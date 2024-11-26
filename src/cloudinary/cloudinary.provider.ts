@@ -6,9 +6,9 @@ export const CloudinaryProvider = {
   inject: [ConfigService],
   useFactory: (configService: ConfigService): ConfigOptions => {
     return v2.config({
-      cloud_name: configService.get('CLOUD_NAME'),
-      api_key: configService.get('CLOUD_KEY'),
-      api_secret: configService.get('CLOUD_SECRET'),
+      cloud_name: configService.getOrThrow('cloudinaryName'),
+      api_key: configService.getOrThrow('cloudinaryKey'),
+      api_secret: configService.getOrThrow('cloudinarySecret'),
     });
   },
 };
