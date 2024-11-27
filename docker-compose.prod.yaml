@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  app:
+    depends_on:
+      - db
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: app-docker
+    container_name: app-cont
+    restart: always # reiniciar el contenedor si se detiene
+    ports:
+      - "${PORT}:${PORT}"
+
+    environment:
+      PGPASSWORD: ${PGPASSWORD}
+      PGUSERNAME: ${PGUSERNAME}
+      PGDATABASE: ${PGDATABASE}
+      PGHOST: db
+      PGPORT: ${PGPORT}
+      CLOUD_NAME: ${CLOUD_NAME}
+      CLOUD_KEY: ${CLOUD_KEY}
+      CLOUD_SECRET: ${CLOUD_SECRET}
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+
+  db:
+    image: postgres:14.3
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGNAME}
+    container_name: db-cont
+    volumes:
+      - ./postgres:/var/lib/postgresql/data

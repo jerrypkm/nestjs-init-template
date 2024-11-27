@@ -25,3 +25,19 @@ docker-compose up -d
 ```
 yarn start:dev
 ```
+
+
+# Production build
+1. Crear archivo ```env.prod```
+2. Llenar las variables de entorno
+3. Crear la nueva imagen
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
+
+
+## Nota
+Para levantar la imagen desde el caché después de hacer el build
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up
+```
